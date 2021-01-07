@@ -7,18 +7,33 @@ import {TodoService} from '../todo.service';
     selector: 'app-todo-list',
     templateUrl: './todo-list.component.html',
     styleUrls: ['./todo-list.component.css']
+ 
 })
 export class TodoListComponent implements OnInit {
 
-    private todoList: TodoListData; 
+    private todoList: TodoListData;
     
-    constructor(private todoService: TodoService) {
-        todoService.getTodoListDataObservable().subscribe( tdl => this.todoList = tdl );
+    public position: number;
+    public visible : String="tous";
+    
+    constructor(private todoService: TodoService){
+      
+        todoService.getTodoListDataObservable().subscribe( 
+            tdl => {
+                this.todoList = tdl;
+               
+            });
+     
+       
     }
 
     ngOnInit() {
-    }
+       
+        
     
+
+    }
+ 
     get label(): string {
         return this.todoList.label;
     }
@@ -26,4 +41,82 @@ export class TodoListComponent implements OnInit {
     get items(): TodoItemData[] {
         return this.todoList.items;
     }
+ 
+    appendItem(label: string, isDone: boolean = false){
+        if(label !== ""){
+            this.todoService.appendItems({
+                label,
+                isDone:isDone,
+               
+            });
+
+        }
+        
+       
+        
+    }
+
+
+
+    actif(){
+       this.todoList.items.forEach(x => 
+        {
+         
+         
+
+        });
+      
+    }
+
+    tous(){
+        this.todoList.items.forEach(I =>this.visible="");
+     }
+
+    complet(){
+        this.todoList.items.forEach(I => 
+         I
+        ) 
+         
+    }
+ 
+    nombre(){
+       let longeur = this.todoList.items.length - this.todoList.items.filter(I =>I.isDone==true).length;
+        return longeur;
+    }
+
+    tousSelect(){
+    
+    
+    let  tousSelectionne = this.items.every(x => x.isDone);
+        this.todoList.items.forEach(x => 
+            {if(tousSelectionne){
+                this.todoService.setItemsDone(x.isDone = true);
+            }
+            else{
+                this.todoService.setItemsDone(x.isDone = false);
+            }
+            });
+    }
+    estVisible(item){
+        if(this.visible==='tous'){
+          return true;
+        }
+        
+        if(this.visible==='actif' && !item.isDone){
+          return true;
+        }
+    
+        if(this.visible==='complet' && item.isDone){
+          return true;
+        }
+    
+        return false;
+      }
+      setVisible(value){
+        this.visible = value;
+      }
+
+  
+    
+  
 }
