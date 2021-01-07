@@ -29,9 +29,6 @@ export class TodoListComponent implements OnInit {
 
     ngOnInit() {
        
-        
-    
-
     }
  
     get label(): string {
@@ -51,38 +48,26 @@ export class TodoListComponent implements OnInit {
             });
 
         }
-        
-       
-        
-    }
-
-
-
-    actif(){
-       this.todoList.items.forEach(x => 
-        {
-         
-         
-
-        });
+    
+   
       
     }
 
-    tous(){
-        this.todoList.items.forEach(I =>this.visible="");
-     }
-
-    complet(){
-        this.todoList.items.forEach(I => 
-         I
-        ) 
-         
-    }
- 
+   
     nombre(){
        let longeur = this.todoList.items.length - this.todoList.items.filter(I =>I.isDone==true).length;
         return longeur;
     }
+    removeItems(){
+        this.todoList.items.forEach(item=>{
+          if(item.isDone){
+            this.todoService.removeItems(item);
+          }
+        });
+    
+       
+    
+      }
 
     tousSelect(){
     
