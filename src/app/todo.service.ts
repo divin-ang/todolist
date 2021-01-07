@@ -37,7 +37,7 @@ export class TodoService {
       items: [...tdl.items, ...items]
     });
   }
-
+ 
   removeItems( ...items: TodoItemData[] ) {
     const tdl = this.todoListSubject.getValue();
     this.todoListSubject.next( {

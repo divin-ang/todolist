@@ -44,9 +44,11 @@
         [class.selected]="visible === 'complet'">Complétés</a>
         
       </li>
+      <li> <button class="clearTout" (click)="effacerTout()" >Supprimer-tout</button></li>
      
     </ul>
     <button class="clear-completed" (click)="removeItems()" >Supprimer cochées</button>
+   
 
   </footer>
 </section>

@@ -68,6 +68,13 @@ export class TodoListComponent implements OnInit {
        
     
       }
+      effacerTout(){
+        this.todoList.items.forEach(item=>{
+            
+              this.todoService.removeItems(item);
+        })
+       
+      }
 
     tousSelect(){
     
