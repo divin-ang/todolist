@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TodoListData} from '../dataTypes/TodoListData';
 import {TodoItemData} from '../dataTypes/TodoItemData';
 import {TodoService} from '../todo.service';
+import {RecognitionService} from '../recognition.service';
 
 @Component({
     selector: 'app-todo-list',
@@ -13,22 +14,28 @@ export class TodoListComponent implements OnInit {
 
     private todoList: TodoListData;
     
-    public position: number;
-    public visible : String="tous";
+    public pos: number;
     
-    constructor(private todoService: TodoService){
+    public visible : String="tous";
+    public text ="";
+    private isStart = false;
+    
+    constructor(private todoService: TodoService, private recognition :RecognitionService){
       
         todoService.getTodoListDataObservable().subscribe( 
             tdl => {
                 this.todoList = tdl;
                
             });
+
+            this.recognition.init()
+            
      
-       
+  
     }
 
     ngOnInit() {
-       
+        this.text=''
     }
  
     get label(): string {
@@ -40,7 +47,7 @@ export class TodoListComponent implements OnInit {
     }
  
     appendItem(label: string, isDone: boolean = false){
-        if(label !== ""){
+        if(label !=""){
             this.todoService.appendItems({
                 label,
                 isDone:isDone,
@@ -55,7 +62,34 @@ export class TodoListComponent implements OnInit {
 
    
     nombre(){
+        
        let longeur = this.todoList.items.length - this.todoList.items.filter(I =>I.isDone==true).length;
+       if(this.todoList.items.length!=0){
+           document.getElementById("tous").style.display="inline"
+           document.getElementById("supprimer-tout").style.display="inline"
+           document.getElementById("restant").style.display="inline"
+           
+       }else{
+        document.getElementById("tous").style.display="none"
+        document.getElementById("supprimer-tout").style.display="none"
+        document.getElementById("restant").style.display="none"
+       }
+       if(this.todoList.items.filter(I =>I.isDone==true).length!=0){
+        document.getElementById("complet").style.display="inline"
+        document.getElementById("coche").style.display="inline"
+       }else{
+        document.getElementById("complet").style.display="none"
+        document.getElementById("coche").style.display="none"
+
+       }
+       if(longeur!=0){
+        document.getElementById("actifs").style.display="inline"
+       }else{
+        document.getElementById("actifs").style.display="none"
+
+       }
+       
+          
         return longeur;
     }
     removeItems(){
@@ -108,7 +142,29 @@ export class TodoListComponent implements OnInit {
         this.visible = value;
       }
 
-  
+    start(){
+        this.recognition.start()
+        this.isStart=true;
+        
+    }
+    stop(){
+        this.recognition.stop() 
+        this.text=this.recognition.text
+        if(this.text.length>1){
+           
+            this.appendItem(this.text,false)
+        }
+       
+         this.text=""
+         this.isStart=false;
+          
+        
+       
+        
+    }
+    gestionVoice(){
+        this.isStart?this.stop():this.start()
+    }
     
   
 }

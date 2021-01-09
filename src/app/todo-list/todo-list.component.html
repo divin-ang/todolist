@@ -1,9 +1,17 @@
 <section class="todoapp">
   <header class="header">
     <h1>{{label}}</h1>
-   
-   
+     
+    <img src="../../assets/micro.png" alt="parler" id="micro" (click)="gestionVoice()">
+    
+    
+    <button>{{text}}</button>
     <form (submit)="appendItem(newTodoInput.value); newTodoInput.value='' ">
+       
+     
+       
+      
+      
       <input  #newTodoInput
               name        = "newTodoInput"
               class       = "new-todo"
@@ -28,27 +36,28 @@
     </ul>
   </section>
   <footer class="footer">
-    <span class="todo-count"><strong>{{nombre()}}</strong> restantes</span>
+    <span class="todo-count" id="restant"><strong>{{nombre()}}</strong> restantes</span>
     <ul class="filters">
-      <li>
-        <a class="filterAll" (click)="setVisible('tous')"
+      <li id="tous">
+        <a class="filterAll"  (click)="setVisible('tous')"
         [class.selected]="visible === 'tous'"
         >Tous</a>
       </li>
-      <li>
-        <a class="filterActives" (click)="setVisible('actif')"
+      <li id="actifs">
+        <a class="filterActives"  (click)="setVisible('actif')"
         [class.selected]="visible === 'actif'">Actifs</a>
       </li>
-      <li>
+      <li id="complet">
         <a class="filterCompleted" (click)="setVisible('complet')"
         [class.selected]="visible === 'complet'">Complétés</a>
         
-      </li>
-      <li> <button class="clearTout" (click)="effacerTout()" >Supprimer-tout</button></li>
+      </li >
+      <li id="supprimer-tout"> <button class="clearTout" (click)="effacerTout()" >tout supprimer</button></li>
      
-    </ul>
-    <button class="clear-completed" (click)="removeItems()" >Supprimer cochées</button>
+    </ul >
+    <li id="coche">     <button class="clear-completed" (click)="removeItems()" >Supprimer cochées</button>
    
+    </li>
 
   </footer>
 </section>
