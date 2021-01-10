@@ -15,6 +15,8 @@ la fonctionnalité permet de reconnaitre le français. pour enregistrer un item 
  - parler
  -cliquer de nouveau sur le micro
 cette fonctionnalité n'est implimenter que pour le navigateur chrome.
+
+
 b) Effacer Tout
 Effacer tout permet de reinitialiser la todolist, c'est à dire effacer tous les items/
 
