@@ -4,6 +4,8 @@ git clone https://github.com/divin-ang/todolist.git
 
 cd PW3-TP3
 Pour lancer le projet 
+
+
 npm start
 
 L'application sera accéssible sur http://localhost:4200/
@@ -14,6 +16,7 @@ la fonctionnalité permet de reconnaitre le français. pour enregistrer un item 
  - cliquer sur le micro 
  - parler
  -cliquer de nouveau sur le micro
+ 
 cette fonctionnalité n'est implimenter que pour le navigateur chrome.
 
 
