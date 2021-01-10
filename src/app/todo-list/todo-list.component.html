@@ -30,7 +30,8 @@
             
     />
     <ul class="todo-list">
-      <li *ngFor="let item of todoList.items" >        
+      <li *ngFor="let item of todoList.items" > 
+        <!--afficher les items en fonction du boton clique qui est passé en parametre dans est visible-->       
         <app-todo-item [item]="item" *ngIf="estVisible(item)"></app-todo-item>
       </li>
     </ul>

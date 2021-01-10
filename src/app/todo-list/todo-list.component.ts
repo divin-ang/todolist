@@ -14,10 +14,8 @@ export class TodoListComponent implements OnInit {
 
     private todoList: TodoListData;
     
-    public pos: number;
-    
     public visible : String="tous";
-    public text ="";
+    public text =""; //resultat de la reconnaissance vocale
     private isStart = false;
     
     constructor(private todoService: TodoService, private recognition :RecognitionService){
@@ -28,14 +26,14 @@ export class TodoListComponent implements OnInit {
                
             });
 
-            this.recognition.init()
+            this.recognition.init() //intiatilisation du du service reconnaissance vocale
             
      
   
     }
 
     ngOnInit() {
-        this.text=''
+        
     }
  
     get label(): string {
@@ -45,7 +43,7 @@ export class TodoListComponent implements OnInit {
     get items(): TodoItemData[] {
         return this.todoList.items;
     }
- 
+    // ajout d'un item
     appendItem(label: string, isDone: boolean = false){
         if(label !=""){
             this.todoService.appendItems({
@@ -60,7 +58,7 @@ export class TodoListComponent implements OnInit {
       
     }
 
-   
+   // affiche le nombre d'item restant et organise l'affichage des fonctionnalites
     nombre(){
         
        let longeur = this.todoList.items.length - this.todoList.items.filter(I =>I.isDone==true).length;
@@ -92,6 +90,7 @@ export class TodoListComponent implements OnInit {
           
         return longeur;
     }
+    //suppression des item
     removeItems(){
         this.todoList.items.forEach(item=>{
           if(item.isDone){
@@ -102,6 +101,7 @@ export class TodoListComponent implements OnInit {
        
     
       }
+      // permet supprimer tous les items
       effacerTout(){
         this.todoList.items.forEach(item=>{
             
@@ -109,7 +109,7 @@ export class TodoListComponent implements OnInit {
         })
        
       }
-
+  // permet de supprimer les items qui sont coches
     tousSelect(){
     
     
@@ -123,14 +123,18 @@ export class TodoListComponent implements OnInit {
             }
             });
     }
+    // cette methode gere l'affichage des items en fonction du bouton clique
     estVisible(item){
+        //si clique sur tous
         if(this.visible==='tous'){
+
           return true;
         }
-        
+        // si clique sur actif
         if(this.visible==='actif' && !item.isDone){
           return true;
         }
+        // si clique sur complet
     
         if(this.visible==='complet' && item.isDone){
           return true;
@@ -138,15 +142,17 @@ export class TodoListComponent implements OnInit {
     
         return false;
       }
+    
       setVisible(value){
         this.visible = value;
       }
-
+    // lance la reconnaissance vocale
     start(){
         this.recognition.start()
         this.isStart=true;
         
     }
+    // arret de l'arreconnaissance vocale et ajout de l'item reconnu 
     stop(){
         this.recognition.stop() 
         this.text=this.recognition.text
@@ -162,6 +168,7 @@ export class TodoListComponent implements OnInit {
        
         
     }
+    // permet d'excuter la methode stop et start en cliquand sur la meme icone de micro
     gestionVoice(){
         this.isStart?this.stop():this.start()
     }

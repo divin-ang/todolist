@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import {TodoService} from './todo.service';
+import {RecognitionService} from './recognition.service';
+
 import {FormsModule} from '@angular/forms';
 
 
@@ -18,7 +20,7 @@ import {FormsModule} from '@angular/forms';
   imports: [
     BrowserModule, FormsModule
   ],
-  providers: [TodoService],
+  providers: [TodoService,RecognitionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

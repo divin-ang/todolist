@@ -28,9 +28,11 @@ export class TodoItemComponent implements OnInit {
   get isDone(): boolean {
     return this.item.isDone;
   }
+  //declarer q un item est realise
   itemDone(item: TodoItemData, done: boolean) {
     this.todoService.setItemsDone(done, item);
   }
+  //supprission d une item
 
   itemDelete() {
     this.todoService.removeItems(this.item);
